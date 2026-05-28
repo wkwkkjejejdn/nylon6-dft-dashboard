@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>尼龙6 DFT 计算 Dashboard</title>
+<style>
+  :root {
+    --bg: #0a0a14;
+    --panel: #12122a;
+    --border: #1e1e3a;
+    --green: #2dd4bf;
+    --red: #f87171;
+    --yellow: #facc15;
+    --blue: #60a5fa;
+    --purple: #c084fc;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    padding: 20px;
+    line-height: 1.6;
+  }
+  h1 {
+    font-size: 1.6rem;
+    margin-bottom: 4px;
+  }
+  h2 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    color: var(--blue);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+  }
+  .header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px;
+  }
+  .header .time { color: var(--muted); font-size: 0.85rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+  }
+  .card.full { grid-column: 1 / -1; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
+  .green { color: var(--green); } .red { color: var(--red); } .yellow { color: var(--yellow); }
+  .badge {
+    display: inline-block; padding: 2px 8px; border-radius: 10px;
+    font-size: 0.75rem; font-weight: 600;
+  }
+  .badge-done { background: #065f46; color: var(--green); }
+  .badge-running { background: #713f12; color: var(--yellow); }
+  .badge-error { background: #7f1d1d; color: var(--red); }
+  .badge-pending { background: #1e293b; color: var(--muted); }
+  .metric {
+    display: inline-block; margin-right: 24px; margin-bottom: 8px;
+  }
+  .metric .value { font-size: 1.4rem; font-weight: 700; }
+  .metric .label { font-size: 0.75rem; color: var(--muted); }
+  .energy-table .level { color: var(--muted); font-size: 0.8rem; }
+  .footer { margin-top: 20px; text-align: center; color: var(--muted); font-size: 0.75rem; }
+  .progress-bar {
+    height: 6px; background: var(--border); border-radius: 3px; margin-top: 4px;
+  }
+  .progress-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+  .learning-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .learning-item:last-child { border-bottom: none; }
+  .learning-item .date { color: var(--muted); font-size: 0.8rem; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>&#9874;&#65039; 尼龙6分解为己内酰胺 — DFT 计算 Dashboard</h1>
+    <p style="color:var(--muted);font-size:0.85rem;">AlCl&#8323; 催化 NMA 模型反应 · PBE-D3BJ + DLPNO-CCSD(T)</p>
+  </div>
+  <div class="time">更新: 2026-05-28 14:10:02</div>
+</div>
+
+<!-- ====== 模块 1: 计算任务进度 ====== -->
+<div class="grid">
+<div class="card">
+  <h2>&#128202; 计算任务进度</h2>
+  <div style="margin-bottom:12px;">
+    <div style="margin-bottom:8px;"><span class="badge badge-done">完成: 18</span> <span class="badge badge-running">运行中: 17</span></div><div style="margin-bottom:12px;"><span style="font-size:0.85rem;color:var(--muted);">总任务: 35 · 完成率: 51%</span><div class="progress-bar"><div class="progress-fill" style="width:51%;background:var(--green);"></div></div></div>
+  </div>
+  <table>
+    <tr><th>步骤</th><th>任务</th><th>文件</th><th>状态</th><th>最后更新</th></tr>
+    <tr><td>02 O Complex</td><td>ocomplex_freq</td><td style="font-size:0.78rem;color:var(--muted);">outputs\02_o_complex\ocomplex_freq.out (204 KB)</td><td><span class="badge badge-done">完成</span></td><td style="font-size:0.8rem;">05-26 00:09</td></tr>
+<tr><td>02 O Complex</td><td>ocomplex_tzvp</td><td style="font-size:0.78rem;color:var(--muted);">outputs\02_o_complex\ocomplex_tzvp.out (82 KB)</td><td><span class="badge badge-done">完成</span></td><td style="font-size:0.8rem;">05-26 00:12</td></tr>
+<tr><td>03 Ts1 H Migration</td><td>ts1_optTS_from_scan</td><td style="font-size:0.78rem;color:var(--muted);">outputs\03_ts1_h_migration\ts1_optTS_from_scan.out (8147 KB)</td><td><span class="badge badge-done">完成</span></td><td style="font-size:0.8rem;">05-26 15:53</td></tr>
+<tr><td>03 Ts1 H Migration</td><td>ts1_optTS_v3</td><td style="font-size:0.78rem;color:var(--muted);">outputs\03_ts1_h_migration\ts1_optTS_v3.out (8144 KB)</td><td><span class="badge badge-done">完成</span></td><td style="font-size:0.8rem;">05-27 16:27</td></tr>
+<tr><td>03 Ts1 H Migration</td><td>ts1_optTS_v4</td><td style="font-size:0.78rem;color:var(--muted);">outputs\03_ts1_h_migration\ts1_optTS_v4.out (12 KB)</td><td title="未正常终止"><span class="badge badge-running">运行中</span></td><td style="font-size:0.8rem;">05-27 16:49</td></tr>
+<tr><td>03 Ts1 H Migration</td><td>ts1_scan_coarse</td><td style="font-size:0.78rem;color:var(--muted);">outputs\03_ts1_h_migration\ts1_scan_coarse.out (4578 KB)</td><td><span class="badge badge-done">完成</span></td><td style="font-size:0.8rem;">05-26 02:22</td></tr>
+<tr><td>03 Ts1 H Migration</td><td>ts1_scan_v2</td><td style="font-size:0.78rem;color:var(--muted);">outputs\03_ts1_h_migration\ts1_scan_v2.out (7348 KB)</td><td><span class="badge badge-done">完成</span></td><td style="font-size:0.8rem;">05-26 10:52</td></tr>
+<tr><td>03 Ts1 H Migration</td><td>ts1_scan_v2_step2_freq</td><td style="font-size:0.78rem;color:var(--muted);">outputs\03_ts1_h_migration\ts1_scan_v2_step2_freq.out (204 KB)</td><td><span class="badge badge-done">完成</span></td><td style="font-size:0.8rem;">05-27 01:14</td></tr>
+<tr><td>03 Ts1 H Migration</td><td>ts1_tzvp</td><td style="font-size:0.78rem;color:var(--muted);">outputs\03_ts1_h_migration\ts1_tzvp.out (81 KB)</td><td><span class="badge badge-done">完成</span></td><td style="font-size:0.8rem;">05-27 16:51</td></tr>
+<tr><td>05 Cn Cleaved</td><td>cn_cleaved_opt</td><td style="font-size:0.78rem;color:var(--muted);">outputs\05_cn_cleaved\cn_cleaved_opt.out (2147 KB)</td><td title="未正常终止"><span class="badge badge-running">运行中</span></td><td style="font-size:0.8rem;">05-25 13:52</td></tr>
+<tr><td>05 Cn Cleaved</td><td>cn_cleaved_restart</td><td style="font-size:0.78rem;color:var(--muted);">outputs\05_cn_cleaved\cn_cleaved_restart.out (927 KB)</td><td><span class="badge badge-done">完成</span></td><td style="font-size:0.8rem;">05-25 14:32</td></tr>
+<tr><td>05 Cn Cleaved</td><td>enol_freq</td><td style="font-size:0.78rem;color:var(--muted);">outputs\05_cn_cleaved\enol_freq.out (204 KB)</td><td><span class="badge badge-done">完成</span></td><td style="font-size:0.8rem;">05-25 20:21</td></tr>
+<tr><td>05 Cn Cleaved</td><td>enol_tzvp</td><td style="font-size:0.78rem;color:var(--muted);">outputs\05_cn_cleaved\enol_tzvp.out (82 KB)</td><td><span class="badge badge-done">完成</span></td><td style="font-size:0.8rem;">05-26 00:14</td></tr>
+<tr><td>06 Ts2 Cyclization</td><td>ts2_opt</td><td style="font-size:0.78rem;color:var(--muted);">outputs\06_ts2_cyclization\ts2_opt.out (1952 KB)</td><td title="未正常终止"><span class="badge badge-running">运行中</span></td><td style="font-size:0.8rem;">05-25 13:52</td></tr>
+<tr><td>06 Ts2 Cyclization</td><td>ts2_optTS_freq</td><td style="font-size:0.78rem;color:var(--muted);">outputs\06_ts2_cyclization\ts2_optTS_freq.out (204 KB)</td><td><span class="badge badge-done">完成</span></td><td style="font-size:0.8rem;">05-26 12:45</td></tr>
+<tr><td>06 Ts2 Cyclization</td><td>ts2_optTS_from_scan</td><td style="font-size:0.78rem;color:var(--muted);">outputs\06_ts2_cyclization\ts2_optTS_from_scan.out (6294 KB)</td><td><span class="badge badge-done">完成</span></td><td style="font-size:0.8rem;">05-26 10:02</td></tr>
+<tr><td>06 Ts2 Cyclization</td><td>ts2_restart</td><td style="font-size:0.78rem;color:var(--muted);">outputs\06_ts2_cyclization\ts2_restart.out (1287 KB)</td><td title="未正常终止"><span class="badge badge-running">运行中</span></td><td style="font-size:0.8rem;">05-25 14:41</td></tr>
+<tr><td>06 Ts2 Cyclization</td><td>ts2_scan_coarse</td><td style="font-size:0.78rem;color:var(--muted);">outputs\06_ts2_cyclization\ts2_scan_coarse.out (7048 KB)</td><td><span class="badge badge-done">完成</span></td><td style="font-size:0.8rem;">05-26 03:32</td></tr>
+<tr><td>06 Ts2 Cyclization</td><td>ts2_tzvp</td><td style="font-size:0.78rem;color:var(--muted);">outputs\06_ts2_cyclization\ts2_tzvp.out (81 KB)</td><td><span class="badge badge-done">完成</span></td><td style="font-size:0.8rem;">05-27 00:59</td></tr>
+<tr><td>07 Caprolactam</td><td>caprolactam_freq</td><td style="font-size:0.78rem;color:var(--muted);">outputs\07_caprolactam\caprolactam_freq.out (204 KB)</td><td><span class="badge badge-done">完成</span></td><td style="font-size:0.8rem;">05-25 20:22</td></tr>
+<tr><td>07 Caprolactam</td><td>caprolactam_opt</td><td style="font-size:0.78rem;color:var(--muted);">outputs\07_caprolactam\caprolactam_opt.out (1649 KB)</td><td title="未正常终止"><span class="badge badge-running">运行中</span></td><td style="font-size:0.8rem;">05-25 13:52</td></tr>
+<tr><td>07 Caprolactam</td><td>caprolactam_restart</td><td style="font-size:0.78rem;color:var(--muted);">outputs\07_caprolactam\caprolactam_restart.out (1175 KB)</td><td title="未正常终止"><span class="badge badge-running">运行中</span></td><td style="font-size:0.8rem;">05-25 14:42</td></tr>
+<tr><td>07 Caprolactam</td><td>caprolactam_tzvp</td><td style="font-size:0.78rem;color:var(--muted);">outputs\07_caprolactam\caprolactam_tzvp.out (81 KB)</td><td><span class="badge badge-done">完成</span></td><td style="font-size:0.8rem;">05-26 00:15</td></tr>
+<tr><td>07 Caprolactam</td><td>caprolactam_v2</td><td style="font-size:0.78rem;color:var(--muted);">outputs\07_caprolactam\caprolactam_v2.out (3449 KB)</td><td><span class="badge badge-done">完成</span></td><td style="font-size:0.8rem;">05-25 16:03</td></tr>
+<tr><td>Root</td><td>alcl3_free_freq_473K</td><td style="font-size:0.78rem;color:var(--muted);">alcl3_free_freq_473K.out (12 KB)</td><td title="未正常终止"><span class="badge badge-running">运行中</span></td><td style="font-size:0.8rem;">05-18 20:10</td></tr>
+<tr><td>Root</td><td>enol_tzvp_pop</td><td style="font-size:0.78rem;color:var(--muted);">enol_tzvp_pop.out (12 KB)</td><td title="未正常终止"><span class="badge badge-running">运行中</span></td><td style="font-size:0.8rem;">05-18 15:26</td></tr>
+<tr><td>Root</td><td>m062x_ts_sp</td><td style="font-size:0.78rem;color:var(--muted);">m062x_ts_sp.out (12 KB)</td><td title="未正常终止"><span class="badge badge-running">运行中</span></td><td style="font-size:0.8rem;">05-18 21:09</td></tr>
+<tr><td>Root</td><td>nma_enol_freq_473K</td><td style="font-size:0.78rem;color:var(--muted);">nma_enol_freq_473K.out (12 KB)</td><td title="未正常终止"><span class="badge badge-running">运行中</span></td><td style="font-size:0.8rem;">05-18 20:10</td></tr>
+<tr><td>Root</td><td>nma_free_freq_473K</td><td style="font-size:0.78rem;color:var(--muted);">nma_free_freq_473K.out (12 KB)</td><td title="未正常终止"><span class="badge badge-running">运行中</span></td><td style="font-size:0.8rem;">05-18 20:10</td></tr>
+<tr><td>Root</td><td>nma_product_freq_473K</td><td style="font-size:0.78rem;color:var(--muted);">nma_product_freq_473K.out (12 KB)</td><td title="未正常终止"><span class="badge badge-running">运行中</span></td><td style="font-size:0.8rem;">05-18 20:10</td></tr>
+<tr><td>Root</td><td>nma_ts_freq_473K</td><td style="font-size:0.78rem;color:var(--muted);">nma_ts_freq_473K.out (12 KB)</td><td title="未正常终止"><span class="badge badge-running">运行中</span></td><td style="font-size:0.8rem;">05-18 20:10</td></tr>
+<tr><td>Root</td><td>product_tzvp_pop</td><td style="font-size:0.78rem;color:var(--muted);">product_tzvp_pop.out (12 KB)</td><td title="未正常终止"><span class="badge badge-running">运行中</span></td><td style="font-size:0.8rem;">05-18 15:26</td></tr>
+<tr><td>Root</td><td>ts_cpcm_thf</td><td style="font-size:0.78rem;color:var(--muted);">ts_cpcm_thf.out (12 KB)</td><td title="未正常终止"><span class="badge badge-running">运行中</span></td><td style="font-size:0.8rem;">05-18 22:58</td></tr>
+<tr><td>Root</td><td>ts_tzvp_pop</td><td style="font-size:0.78rem;color:var(--muted);">ts_tzvp_pop.out (12 KB)</td><td title="未正常终止"><span class="badge badge-running">运行中</span></td><td style="font-size:0.8rem;">05-18 15:26</td></tr>
+<tr><td>Root</td><td>wb97x_ts_sp</td><td style="font-size:0.78rem;color:var(--muted);">wb97x_ts_sp.out (12 KB)</td><td title="未正常终止"><span class="badge badge-running">运行中</span></td><td style="font-size:0.8rem;">05-18 20:59</td></tr>
+  </table>
+  <p style="margin-top:8px;font-size:0.78rem;color:var(--muted);">共 35 个输出文件，18 个正常终止</p>
+</div>
+
+<!-- ====== 模块 4: 机器资源状态 ====== -->
+<div class="card">
+  <h2>&#128268; 机器资源状态</h2>
+  <p style="color:var(--yellow);">psutil 未安装，无法获取系统指标。<br><code>pip install psutil</code></p>
+  
+</div>
+
+<!-- ====== 模块 2: 关键能量/结构数据 ====== -->
+<div class="card full">
+  <h2>&#9889; 关键能量数据</h2>
+
+  <h3 style="margin-top:12px;color:var(--purple);">DLPNO-CCSD(T)/def2-TZVP 自由能 (473 K) &mdash; 主力级别</h3>
+  <table class="energy-table">
+    <tr><th>物种</th><th>E(DLPNO) / E<sub>h</sub></th><th>&Delta;G<sub>corr</sub>(SVP)</th><th>G(DLPNO, 473K) / E<sub>h</sub></th><th>&Delta;G(473K) / kcal&middot;mol<sup>&minus;1</sup></th><th>T1(max)</th></tr>
+    <tr><td>O-complex</td><td>−1869.560535</td><td>+0.034691</td><td>−1869.525843</td><td class="green">0.00</td><td>0.0111</td></tr>
+<tr><td>TS ([1,3]-H)</td><td>−1869.431105</td><td>+0.034061</td><td>−1869.397044</td><td class="red">+80.82</td><td>0.0105</td></tr>
+<tr><td>Enol</td><td>−1869.431523</td><td>+0.032309</td><td>−1869.399213</td><td class="red">+79.46</td><td>0.0106</td></tr>
+<tr><td>Product</td><td>−1869.487137</td><td>+0.024741</td><td>−1869.462396</td><td class="red">+39.81</td><td>0.0122</td></tr>
+  </table>
+
+  <h3 style="margin-top:16px;color:var(--purple);">SVP 级别 (PBE-D3BJ/def2-SVP)</h3>
+  <table class="energy-table">
+    <tr><th>物种</th><th>E(SVP) / E<sub>h</sub></th><th>ZPE / kcal&middot;mol<sup>&minus;1</sup></th><th>G(SVP, 473K) / E<sub>h</sub></th><th>虚频</th></tr>
+    <tr><td>NMA（自由）</td><td>−248.047170</td><td>61.95</td><td>−247.999476</td><td>0</td></tr>
+<tr><td>AlCl₃（自由）</td><td>−1622.029195</td><td>2.99</td><td>−1622.077457</td><td>0</td></tr>
+<tr><td>分离反应物之和</td><td>−1870.076365</td><td>64.94</td><td>−1870.076932</td><td>—</td></tr>
+<tr><td>O-complex</td><td>−1870.150223</td><td>67.10</td><td>−1870.115532</td><td>0</td></tr>
+<tr><td>TS ([1,3]-H)</td><td>−1870.017251</td><td>65.43</td><td>−1869.983190</td><td>1 (−184 cm⁻¹)</td></tr>
+<tr><td>Enol</td><td>−1870.018127</td><td>65.50</td><td>−1869.985818</td><td>0</td></tr>
+<tr><td>Product</td><td>−1870.067272</td><td>63.76</td><td>−1870.042531</td><td>0</td></tr>
+  </table>
+
+  <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:16px;">
+    <div>
+      <h3 style="color:var(--purple);">有效能垒对比 (473 K)</h3>
+      <table>
+        <tr><th>级别</th><th>&Delta;G<sup>&Dagger;</sup><sub>eff</sub> / kcal&middot;mol<sup>&minus;1</sup></th></tr>
+        <tr><td>SVP（基组一致）</td><td>+58.83</td></tr>
+<tr><td>TZVP</td><td>+61.27</td></tr>
+<tr><td>CPCM(THF)</td><td>+62.20</td></tr>
+<tr><td>DLPNO 估算</td><td>~+62.5</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3 style="color:var(--purple);">TST 动力学 (473 K)</h3>
+      <table>
+        <tr><td>T</td><td>473 K</td></tr>
+<tr><td>k<sub>B</sub>·T/h</td><td>9.856 × 10¹² s⁻¹</td></tr>
+<tr><td>κ (Wigner)</td><td>1.013</td></tr>
+<tr><td>ΔG<sup>‡</sup><sub>intr</sub>(DLPNO)</td><td>+80.82 kcal·mol⁻¹</td></tr>
+<tr><td>k<sub>intr</sub>(473K)</td><td>4.5 × 10⁻²⁵ s⁻¹</td></tr>
+<tr><td>速率加速 (cat vs uncat)</td><td>≥ 10¹⁵</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 模块 3: 日志摘要 ====== -->
+<div class="card">
+  <h2>&#128221; 最近更新日志</h2>
+  <div style="padding:6px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;"><span>✅ <span style="font-size:0.85rem;">ts1_tzvp</span><span style="font-size:0.72rem;color:var(--muted);margin-left:8px;">03_ts1_h_migration</span></span><span style="font-size:0.78rem;color:var(--muted);">05-27 16:51</span></div>
+<div style="padding:6px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;"><span>🔄 <span style="font-size:0.85rem;">ts1_optTS_v4</span><span style="font-size:0.72rem;color:var(--muted);margin-left:8px;">03_ts1_h_migration</span></span><span style="font-size:0.78rem;color:var(--muted);">05-27 16:49</span></div>
+<div style="padding:6px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;"><span>✅ <span style="font-size:0.85rem;">ts1_optTS_v3</span><span style="font-size:0.72rem;color:var(--muted);margin-left:8px;">03_ts1_h_migration</span></span><span style="font-size:0.78rem;color:var(--muted);">05-27 16:27</span></div>
+<div style="padding:6px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;"><span>✅ <span style="font-size:0.85rem;">ts1_scan_v2_step2_freq</span><span style="font-size:0.72rem;color:var(--muted);margin-left:8px;">03_ts1_h_migration</span></span><span style="font-size:0.78rem;color:var(--muted);">05-27 01:14</span></div>
+<div style="padding:6px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;"><span>✅ <span style="font-size:0.85rem;">ts2_tzvp</span><span style="font-size:0.72rem;color:var(--muted);margin-left:8px;">06_ts2_cyclization</span></span><span style="font-size:0.78rem;color:var(--muted);">05-27 00:59</span></div>
+<div style="padding:6px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;"><span>✅ <span style="font-size:0.85rem;">ts1_optTS_from_scan</span><span style="font-size:0.72rem;color:var(--muted);margin-left:8px;">03_ts1_h_migration</span></span><span style="font-size:0.78rem;color:var(--muted);">05-26 15:53</span></div>
+<div style="padding:6px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;"><span>✅ <span style="font-size:0.85rem;">ts2_optTS_freq</span><span style="font-size:0.72rem;color:var(--muted);margin-left:8px;">06_ts2_cyclization</span></span><span style="font-size:0.78rem;color:var(--muted);">05-26 12:45</span></div>
+<div style="padding:6px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;"><span>✅ <span style="font-size:0.85rem;">ts1_scan_v2</span><span style="font-size:0.72rem;color:var(--muted);margin-left:8px;">03_ts1_h_migration</span></span><span style="font-size:0.78rem;color:var(--muted);">05-26 10:52</span></div>
+<div style="padding:6px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;"><span>✅ <span style="font-size:0.85rem;">ts2_optTS_from_scan</span><span style="font-size:0.72rem;color:var(--muted);margin-left:8px;">06_ts2_cyclization</span></span><span style="font-size:0.78rem;color:var(--muted);">05-26 10:02</span></div>
+<div style="padding:6px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;"><span>✅ <span style="font-size:0.85rem;">ts2_scan_coarse</span><span style="font-size:0.72rem;color:var(--muted);margin-left:8px;">06_ts2_cyclization</span></span><span style="font-size:0.78rem;color:var(--muted);">05-26 03:32</span></div>
+</div>
+
+<!-- ====== 模块 5: 社区学习笔记 ====== -->
+<div class="card">
+  <h2>&#128218; 每天逛社区学到了什么</h2>
+  <p style="color:var(--muted);">还没有记录。运行 <code>--add-note "学到了什么"</code> 来添加。</p>
+</div>
+
+</div><!-- end grid -->
+
+<div class="footer">
+  <p>Auto-generated by ORCA Dashboard Script &middot; PBE-D3BJ + DLPNO-CCSD(T)/def2-TZVP &middot; ORCA 6.1.1 · PBE-D3BJ def2-SVP · DLPNO-CCSD(T) def2-TZVP TightPNO</p>
+  <p><small>尼龙6分解为己内酰胺 DTF 计算第一轮 &middot; AlCl&#8323; 催化机理研究</small></p>
+</div>
+
+</body>
+</html>
