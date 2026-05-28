@@ -25,56 +25,27 @@
     padding: 20px;
     line-height: 1.6;
   }
-  h1 {
-    font-size: 1.6rem;
-    margin-bottom: 4px;
-  }
-  h2 {
-    font-size: 1.1rem;
-    margin-bottom: 12px;
-    color: var(--blue);
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 6px;
-  }
-  .header {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 20px;
-  }
+  h1 { font-size: 1.6rem; margin-bottom: 4px; }
+  h2 { font-size: 1.1rem; margin-bottom: 12px; color: var(--blue); border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+  .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
   .header .time { color: var(--muted); font-size: 0.85rem; }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-    gap: 16px;
-  }
-  .card {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 18px;
-  }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 16px; }
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
   .card.full { grid-column: 1 / -1; }
   table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
   th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--border); }
   th { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
   .green { color: var(--green); } .red { color: var(--red); } .yellow { color: var(--yellow); }
-  .badge {
-    display: inline-block; padding: 2px 8px; border-radius: 10px;
-    font-size: 0.75rem; font-weight: 600;
-  }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; font-weight: 600; }
   .badge-done { background: #065f46; color: var(--green); }
   .badge-running { background: #713f12; color: var(--yellow); }
   .badge-error { background: #7f1d1d; color: var(--red); }
   .badge-pending { background: #1e293b; color: var(--muted); }
-  .metric {
-    display: inline-block; margin-right: 24px; margin-bottom: 8px;
-  }
+  .metric { display: inline-block; margin-right: 24px; margin-bottom: 8px; }
   .metric .value { font-size: 1.4rem; font-weight: 700; }
   .metric .label { font-size: 0.75rem; color: var(--muted); }
-  .energy-table .level { color: var(--muted); font-size: 0.8rem; }
   .footer { margin-top: 20px; text-align: center; color: var(--muted); font-size: 0.75rem; }
-  .progress-bar {
-    height: 6px; background: var(--border); border-radius: 3px; margin-top: 4px;
-  }
+  .progress-bar { height: 6px; background: var(--border); border-radius: 3px; margin-top: 4px; }
   .progress-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
   .learning-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
   .learning-item:last-child { border-bottom: none; }
@@ -90,10 +61,9 @@
     <h1>&#9874;&#65039; 尼龙6分解为己内酰胺 — DFT 计算 Dashboard</h1>
     <p style="color:var(--muted);font-size:0.85rem;">AlCl&#8323; 催化 NMA 模型反应 · PBE-D3BJ + DLPNO-CCSD(T)</p>
   </div>
-  <div class="time">更新: 2026-05-28 14:10:02</div>
+  <div class="time">更新: 2026-05-28 15:11:54</div>
 </div>
 
-<!-- ====== 模块 1: 计算任务进度 ====== -->
 <div class="grid">
 <div class="card">
   <h2>&#128202; 计算任务进度</h2>
@@ -141,20 +111,22 @@
   <p style="margin-top:8px;font-size:0.78rem;color:var(--muted);">共 35 个输出文件，18 个正常终止</p>
 </div>
 
-<!-- ====== 模块 4: 机器资源状态 ====== -->
 <div class="card">
   <h2>&#128268; 机器资源状态</h2>
-  <p style="color:var(--yellow);">psutil 未安装，无法获取系统指标。<br><code>pip install psutil</code></p>
+  
+    <div class="metric"><div class="value" style="color:var(--green);">33.3%</div><div class="label">CPU</div></div>
+    <div class="metric"><div class="value" style="color:var(--red);">92.6%</div><div class="label">内存 (14.5/15.7 GB)</div></div>
+    <div class="metric"><div class="value" style="color:var(--red);">93.0%</div><div class="label">磁盘 (213.1/229.2 GB)</div></div>
+    <div style="margin-top:12px;"><p style="color:var(--red);">内存占用率过高 (92.6%)</p><p style="color:var(--red);">磁盘空间不足 (93.0%)</p></div>
   
 </div>
 
-<!-- ====== 模块 2: 关键能量/结构数据 ====== -->
 <div class="card full">
   <h2>&#9889; 关键能量数据</h2>
 
-  <h3 style="margin-top:12px;color:var(--purple);">DLPNO-CCSD(T)/def2-TZVP 自由能 (473 K) &mdash; 主力级别</h3>
+  <h3 style="margin-top:12px;color:var(--purple);">DLPNO-CCSD(T)/def2-TZVP 自由能 (473 K) — 主力级别</h3>
   <table class="energy-table">
-    <tr><th>物种</th><th>E(DLPNO) / E<sub>h</sub></th><th>&Delta;G<sub>corr</sub>(SVP)</th><th>G(DLPNO, 473K) / E<sub>h</sub></th><th>&Delta;G(473K) / kcal&middot;mol<sup>&minus;1</sup></th><th>T1(max)</th></tr>
+    <tr><th>物种</th><th>E(DLPNO) / E<sub>h</sub></th><th>ΔG<sub>corr</sub>(SVP)</th><th>G(DLPNO, 473K) / E<sub>h</sub></th><th>ΔG(473K) / kcal·mol<sup>−1</sup></th><th>T1(max)</th></tr>
     <tr><td>O-complex</td><td>−1869.560535</td><td>+0.034691</td><td>−1869.525843</td><td class="green">0.00</td><td>0.0111</td></tr>
 <tr><td>TS ([1,3]-H)</td><td>−1869.431105</td><td>+0.034061</td><td>−1869.397044</td><td class="red">+80.82</td><td>0.0105</td></tr>
 <tr><td>Enol</td><td>−1869.431523</td><td>+0.032309</td><td>−1869.399213</td><td class="red">+79.46</td><td>0.0106</td></tr>
@@ -163,7 +135,7 @@
 
   <h3 style="margin-top:16px;color:var(--purple);">SVP 级别 (PBE-D3BJ/def2-SVP)</h3>
   <table class="energy-table">
-    <tr><th>物种</th><th>E(SVP) / E<sub>h</sub></th><th>ZPE / kcal&middot;mol<sup>&minus;1</sup></th><th>G(SVP, 473K) / E<sub>h</sub></th><th>虚频</th></tr>
+    <tr><th>物种</th><th>E(SVP) / E<sub>h</sub></th><th>ZPE / kcal·mol<sup>−1</sup></th><th>G(SVP, 473K) / E<sub>h</sub></th><th>虚频</th></tr>
     <tr><td>NMA（自由）</td><td>−248.047170</td><td>61.95</td><td>−247.999476</td><td>0</td></tr>
 <tr><td>AlCl₃（自由）</td><td>−1622.029195</td><td>2.99</td><td>−1622.077457</td><td>0</td></tr>
 <tr><td>分离反应物之和</td><td>−1870.076365</td><td>64.94</td><td>−1870.076932</td><td>—</td></tr>
@@ -177,7 +149,7 @@
     <div>
       <h3 style="color:var(--purple);">有效能垒对比 (473 K)</h3>
       <table>
-        <tr><th>级别</th><th>&Delta;G<sup>&Dagger;</sup><sub>eff</sub> / kcal&middot;mol<sup>&minus;1</sup></th></tr>
+        <tr><th>级别</th><th>ΔG<sup>‡</sup><sub>eff</sub> / kcal·mol<sup>−1</sup></th></tr>
         <tr><td>SVP（基组一致）</td><td>+58.83</td></tr>
 <tr><td>TZVP</td><td>+61.27</td></tr>
 <tr><td>CPCM(THF)</td><td>+62.20</td></tr>
@@ -198,7 +170,6 @@
   </div>
 </div>
 
-<!-- ====== 模块 3: 日志摘要 ====== -->
 <div class="card">
   <h2>&#128221; 最近更新日志</h2>
   <div style="padding:6px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;"><span>✅ <span style="font-size:0.85rem;">ts1_tzvp</span><span style="font-size:0.72rem;color:var(--muted);margin-left:8px;">03_ts1_h_migration</span></span><span style="font-size:0.78rem;color:var(--muted);">05-27 16:51</span></div>
@@ -213,17 +184,16 @@
 <div style="padding:6px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;"><span>✅ <span style="font-size:0.85rem;">ts2_scan_coarse</span><span style="font-size:0.72rem;color:var(--muted);margin-left:8px;">06_ts2_cyclization</span></span><span style="font-size:0.78rem;color:var(--muted);">05-26 03:32</span></div>
 </div>
 
-<!-- ====== 模块 5: 社区学习笔记 ====== -->
 <div class="card">
   <h2>&#128218; 每天逛社区学到了什么</h2>
   <p style="color:var(--muted);">还没有记录。运行 <code>--add-note "学到了什么"</code> 来添加。</p>
 </div>
 
-</div><!-- end grid -->
+</div>
 
 <div class="footer">
-  <p>Auto-generated by ORCA Dashboard Script &middot; PBE-D3BJ + DLPNO-CCSD(T)/def2-TZVP &middot; ORCA 6.1.1 · PBE-D3BJ def2-SVP · DLPNO-CCSD(T) def2-TZVP TightPNO</p>
-  <p><small>尼龙6分解为己内酰胺 DTF 计算第一轮 &middot; AlCl&#8323; 催化机理研究</small></p>
+  <p>Auto-generated by ORCA Dashboard Script · PBE-D3BJ + DLPNO-CCSD(T)/def2-TZVP · ORCA 6.1.1 · PBE-D3BJ def2-SVP · DLPNO-CCSD(T) def2-TZVP TightPNO</p>
+  <p><small>尼龙6分解为己内酰胺 DTF 计算第一轮 · AlCl&#8323; 催化机理研究</small></p>
 </div>
 
 </body>
